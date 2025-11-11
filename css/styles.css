@@ -1166,3 +1166,21 @@ section {
 .social-links {
     display: none;
 }
+
+
+
+.particles-container {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: float 3s ease-in-out infinite;
+}
