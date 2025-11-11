@@ -215,3 +215,66 @@ window.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', highlightActiveSection);
 })();
 
+
+
+
+import React, { useEffect } from 'react';
+
+const LiquidCursor = () => {
+  useEffect(() => {
+    const numDots = 30;
+    const dots: HTMLDivElement[] = [];
+    let mousex = 0;
+    let mousey = 0;
+
+    // Create dots
+    for (let i = 0; i < numDots; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'neon-dot';
+      // Set initial position
+      dot.style.left = '0px';
+      dot.style.top = '0px';
+      document.body.appendChild(dot);
+      dots.push(dot);
+    }
+
+    function moveDots() {
+      let nextx = mousex;
+      let nexty = mousey;
+
+      dots.forEach((dot, index) => {
+        const currentX = dot.style.left ? parseFloat(dot.style.left) : 0;
+        const currentY = dot.style.top ? parseFloat(dot.style.top) : 0;
+
+        dot.style.left = nextx + 'px';
+        dot.style.top = nexty + 'px';
+
+        nextx += (currentX - nextx) * 0.3;
+        nexty += (currentY - nexty) * 0.3;
+      });
+
+      requestAnimationFrame(moveDots);
+    }
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mousex = e.clientX;
+      mousey = e.clientY;
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    moveDots();
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      dots.forEach(dot => {
+        if (dot.parentNode) {
+          dot.parentNode.removeChild(dot);
+        }
+      });
+    };
+  }, []);
+
+  return null;
+};
+
+export default LiquidCursor;
