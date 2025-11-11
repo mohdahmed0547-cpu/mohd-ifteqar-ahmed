@@ -469,7 +469,6 @@ section {
     font-weight: 500;
     border-radius: calc(var(--radius) - 4px);
     transition: var(--transition-smooth);
-    cursor: pointer;
     display: inline-block;
 }
 
